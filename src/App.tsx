@@ -1,20 +1,24 @@
+import Navbar from 'components/navbar'
+import { PostContextProvider, UserContextProvider } from 'contexts'
 import { FC } from 'react'
-import { Link, Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import { Home, Profile } from './pages'
 
 const App: FC = () => {
   return (
-    <div className="App">
-      <div style={{ display: 'flex' }}>
-        <Link to="/">Home</Link>
-        <Link to="/profile">Profile</Link>
-      </div>
+    <UserContextProvider>
+      <PostContextProvider>
+        <Navbar />
 
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<Profile />} />
-      </Routes>
-    </div>
+        <div className="max-w-[1024px] m-auto">
+          <Routes>
+            <Route path="/" element={<Navigate to="/home/all" />} />
+            <Route path="/home/:mode" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
+        </div>
+      </PostContextProvider>
+    </UserContextProvider>
   )
 }
 

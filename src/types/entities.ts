@@ -2,13 +2,14 @@ export interface Post {
   id: ID
   authorId: ID
   content: string
-  createdAt: Date
+  createdAt: string
 }
 
 export interface User {
   id: ID
   username: string
-  joinedOn: Date
+  name: string
+  joinedOn: string
   followers: ID[]
   following: ID[]
   posts: ID[]
