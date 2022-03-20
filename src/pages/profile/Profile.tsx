@@ -1,4 +1,5 @@
 import Avatar from 'components/avatar'
+import { Button } from 'components/button'
 import Modal from 'components/modal'
 import { format, parseISO } from 'date-fns'
 import { usePosts, useUsers } from 'hooks'
@@ -34,11 +35,18 @@ const Profile: FC = () => {
               Joined on {format(parseISO(user.joinedOn), 'MMM dd, yyyy')}{' '}
             </span>
             {user.id !== currentUser.id && (
-              <button onClick={() => manageFollower(user.id)}>
+              <Button
+                variant={
+                  currentUser.following.includes(user.id)
+                    ? 'secondary'
+                    : 'primary'
+                }
+                onClick={() => manageFollower(user.id)}
+              >
                 {currentUser.following.includes(user.id)
                   ? 'Unfollow'
                   : 'Follow'}
-              </button>
+              </Button>
             )}
           </div>
         </div>
