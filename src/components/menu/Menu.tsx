@@ -1,7 +1,8 @@
+import clsx from 'clsx'
 import { FC, useRef, useState } from 'react'
 import { useOnClickOutside } from 'usehooks-ts'
 
-export type Option = {
+interface Option {
   label: string
   action: () => void
 }
@@ -17,16 +18,23 @@ const Menu: FC<Props> = ({ children, options }) => {
   useOnClickOutside(menuRef, () => setOpen(false))
 
   return (
-    <>
-      <div className="relative cursor-pointer" onClick={() => setOpen(!open)}>
+    <div className="relative">
+      <div
+        className="hover:bg-white hover:bg-opacity-10 cursor-pointer rounded-md flex gap-4 p-2 items-center"
+        onClick={() => setOpen(!open)}
+      >
         {children}
       </div>
 
       <div
         ref={menuRef}
-        className={`styled-box absolute top-full right-0 bg-bg text-text py-2 px-0 transition-all ${
-          open ? 'opacity-100 visible' : 'opacity-0 invisible'
-        }`}
+        className={clsx(
+          'styled-box absolute top-full left-1/2 -translate-x-1/2 w-max bg-bg text-text py-2 px-0 mt-1 transition-all',
+          {
+            'opacity-100 visible': open,
+            'opacity-0 invisible': !open,
+          }
+        )}
       >
         {options.map((o) => (
           <div
@@ -38,7 +46,7 @@ const Menu: FC<Props> = ({ children, options }) => {
           </div>
         ))}
       </div>
-    </>
+    </div>
   )
 }
 

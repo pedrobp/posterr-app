@@ -22,7 +22,7 @@ const Profile: FC = () => {
 
   if (!user || !currentUser) return null
   return (
-    <Modal open onClose={() => setQuery({})}>
+    <Modal open={!!user} onClose={() => setQuery({})}>
       <div className="styled-box flex flex-col gap-5 mt-4 bg-bg p-10">
         <div className="flex gap-10 items-center">
           <div>
