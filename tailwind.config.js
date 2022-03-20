@@ -9,6 +9,7 @@ module.exports = {
         primaryLight: '#b2d8d8',
         primaryDark: '#008080',
         bg: '#f8f8f8',
+        bgSecondary: '#a6a6a6',
         bgDark: '#243447',
         text: '#141d26',
         textSecondary: '#9c9c9c',

@@ -1,3 +1,3 @@
 export const getPosts = () => {
-  console.log('ronaldo')
+  console.log('test')
 }

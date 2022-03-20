@@ -2,7 +2,7 @@ import Navbar from 'components/navbar'
 import { PostContextProvider, UserContextProvider } from 'contexts'
 import { FC } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { Home, Profile } from './pages'
+import { Home } from './pages'
 
 const App: FC = () => {
   return (
@@ -12,9 +12,8 @@ const App: FC = () => {
 
         <div className="max-w-[1024px] m-auto">
           <Routes>
-            <Route path="/" element={<Navigate to="/home/all" />} />
-            <Route path="/home/:mode" element={<Home />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/" element={<Navigate to="/all" />} />
+            <Route path="/:mode" element={<Home />} />
           </Routes>
         </div>
       </PostContextProvider>

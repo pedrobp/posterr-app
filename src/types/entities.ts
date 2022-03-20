@@ -3,6 +3,8 @@ export interface Post {
   authorId: ID
   content: string
   createdAt: string
+  quoteId?: ID
+  repostId?: ID
 }
 
 export interface User {
@@ -10,7 +12,6 @@ export interface User {
   username: string
   name: string
   joinedOn: string
-  followers: ID[]
   following: ID[]
-  posts: ID[]
+  avatarUrl?: string
 }
