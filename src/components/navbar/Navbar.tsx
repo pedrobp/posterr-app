@@ -3,19 +3,24 @@ import Menu from 'components/menu'
 import Modal from 'components/modal'
 import Selector from 'components/selector'
 import { useUsers } from 'hooks'
+import { Signpost, UserSwitch } from 'phosphor-react'
 import { FC, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-const Navbar: FC = () => {
+const NavBar: FC = () => {
   const { users, currentUser, updateCurrentUser } = useUsers()
   const [, setQuery] = useSearchParams()
-  const [open, setOpen] = useState(false)
+  const [selectorOpen, setSelectorOpen] = useState(false)
 
   if (!currentUser) return null
+
   return (
     <>
       <div className="bg-primaryDark w-screen flex items-center sticky top-0 left-0 py-3 px-36 text-textDark gap-10">
-        <div className="text-xl font-semibold">Posterr</div>
+        <div className="text-xl font-semibold flex gap-2">
+          Posterr
+          <Signpost size={30} />
+        </div>
         <div className="flex gap-5 flex-1">
           <button
             onClick={() =>
@@ -28,12 +33,20 @@ const Navbar: FC = () => {
           </button>
         </div>
 
-        <Menu options={[{ label: 'Change User', action: () => setOpen(true) }]}>
+        <Menu
+          options={[
+            {
+              prefix: <UserSwitch size={22} />,
+              label: 'Change User',
+              action: () => setSelectorOpen(true),
+            },
+          ]}
+        >
           {currentUser.name}
           <Avatar size="small" user={currentUser} />
         </Menu>
       </div>
-      <Modal open={open} onClose={() => setOpen(false)}>
+      <Modal open={selectorOpen} onClose={() => setSelectorOpen(false)}>
         <Selector
           title="Select a user"
           options={users
@@ -52,4 +65,4 @@ const Navbar: FC = () => {
   )
 }
 
-export default Navbar
+export default NavBar

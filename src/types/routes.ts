@@ -1,3 +1,3 @@
 export type HomeRoute = {
-  mode: 'all' | 'following' | 'profile'
+  mode: 'all' | 'following'
 }

@@ -6,4 +6,8 @@
   .styled-box {
     @apply border-2 rounded-lg shadow-md p-5;
   }
+
+  .button-base {
+    @apply hover:bg-black hover:bg-opacity-10 cursor-pointer rounded-md transition-all p-2;
+  }
 }

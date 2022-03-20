@@ -1,6 +1,7 @@
 import Avatar from 'components/avatar'
 import { Button } from 'components/button'
 import Modal from 'components/modal'
+import Post from 'components/post'
 import { format, parseISO } from 'date-fns'
 import { usePosts, useUsers } from 'hooks'
 import { FC, useMemo } from 'react'
@@ -24,10 +25,8 @@ const Profile: FC = () => {
   return (
     <Modal open={!!user} onClose={() => setQuery({})}>
       <div className="styled-box flex flex-col gap-5 mt-4 bg-bg p-10">
-        <div className="flex gap-10 items-center">
-          <div>
-            <Avatar size="large" user={user} />
-          </div>
+        <div className="flex gap-14 items-center">
+          <Avatar size="large" user={user} />
           <div className="flex flex-col gap-2">
             <span className="text-2xl font-bold">{user.name}</span>
             <span className="text-textSecondary">@{user.username} </span>
@@ -50,11 +49,12 @@ const Profile: FC = () => {
             )}
           </div>
         </div>
+
         <div className="flex">
           <div className="flex flex-col gap-2 flex-1">
             <span className="font-bold">Followers</span>
             <span>
-              {users.filter((u) => u.following.includes(currentUser.id)).length}
+              {users.filter((u) => u.following.includes(user.id)).length}
             </span>
           </div>
           <div className="flex flex-col gap-2 flex-1">
@@ -65,6 +65,12 @@ const Profile: FC = () => {
             <span className="font-bold">Posts</span>
             <span>{userPosts?.length}</span>
           </div>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          {userPosts.map((p) => (
+            <Post key={p.id} post={p} />
+          ))}
         </div>
       </div>
     </Modal>

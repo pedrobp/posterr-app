@@ -1,9 +1,10 @@
 import clsx from 'clsx'
-import { FC, useRef, useState } from 'react'
+import { FC, ReactNode, useRef, useState } from 'react'
 import { useOnClickOutside } from 'usehooks-ts'
 
 interface Option {
-  label: string
+  prefix?: ReactNode
+  label: ReactNode
   action: () => void
 }
 
@@ -20,7 +21,7 @@ const Menu: FC<Props> = ({ children, options }) => {
   return (
     <div className="relative">
       <div
-        className="hover:bg-white hover:bg-opacity-10 cursor-pointer rounded-md flex gap-4 p-2 items-center"
+        className="button-base flex gap-4 p-2 items-center"
         onClick={() => setOpen(!open)}
       >
         {children}
@@ -36,12 +37,13 @@ const Menu: FC<Props> = ({ children, options }) => {
           }
         )}
       >
-        {options.map((o) => (
+        {options.map((o, i) => (
           <div
-            key={o.label}
+            key={i}
             onClick={o.action}
-            className="hover:bg-gray-200 py-1 px-4 select-none cursor-pointer"
+            className="hover:bg-gray-200 py-1 px-4 select-none cursor-pointer flex gap-3 items-center"
           >
+            {o.prefix}
             {o.label}
           </div>
         ))}

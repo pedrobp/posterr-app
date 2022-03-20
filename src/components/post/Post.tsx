@@ -1,7 +1,7 @@
 import Avatar from 'components/avatar'
 import { format, parseISO } from 'date-fns'
 import { useUsers } from 'hooks'
-import { FC } from 'react'
+import { FC, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { Post as PostRecord } from 'types/entities'
 
@@ -13,12 +13,15 @@ const Post: FC<Props> = ({ post }) => {
   const { users } = useUsers()
   const [, setQuery] = useSearchParams()
 
-  const author = users.find((u) => u.id === post.authorId)
+  const author = useMemo(
+    () => users.find((u) => u.id === post.authorId),
+    [post.authorId, users]
+  )
 
   if (!author) return null
 
   return (
-    <div className="styled-box flex gap-4 w-3/5 items-center">
+    <div className="styled-box flex gap-4 w-full items-center">
       <div
         className="cursor-pointer"
         onClick={() => setQuery({ user: author.id })}

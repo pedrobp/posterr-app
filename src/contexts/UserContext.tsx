@@ -57,10 +57,13 @@ const UserContextProvider: FC = ({ children }) => {
     [currentUserId, users]
   )
 
-  const updateCurrentUser = useCallback((id: ID) => {
-    const user = users.find((u) => u.id === id)
-    if (user) setCurrentUserId(user.id)
-  }, [])
+  const updateCurrentUser = useCallback(
+    (id: ID) => {
+      const user = users.find((u) => u.id === id)
+      if (user) setCurrentUserId(user.id)
+    },
+    [setCurrentUserId, users]
+  )
 
   const manageFollower = useCallback(
     (id: ID) => {

@@ -18,13 +18,13 @@ const Selector: FC<Props> = ({ options, selected, onSelect, title }) => {
   return (
     <div className="styled-box p-10 bg-bg flex flex-col text-center gap-5">
       <span className="font-bold text-lg">{title}</span>
-      <div className=" flex gap-10 ">
+      <div className="flex gap-10 ">
         {options.map((o) => (
           <div
             key={o.id}
             onClick={() => onSelect(o.id)}
             className={clsx(
-              'border-4 shadow-md p-10 flex flex-col gap-5 cursor-pointer rounded-xl',
+              'button-base border-4 shadow-md p-10 flex flex-col gap-5 rounded-xl',
               {
                 'border-primary': selected.includes(o.id),
               }
