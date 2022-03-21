@@ -21,7 +21,7 @@ const Menu: FC<Props> = ({ children, options }) => {
   return (
     <div className="relative">
       <div
-        className="button-base flex gap-4 p-2 items-center"
+        className="button-base flex gap-4 p-2 items-center font-semibold"
         onClick={() => setOpen(!open)}
       >
         {children}

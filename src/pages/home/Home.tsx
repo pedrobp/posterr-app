@@ -18,7 +18,7 @@ const Home: FC = () => {
 
   return (
     <>
-      <div className="flex gap-10 mt-10">
+      <div className="flex gap-10 mt-5">
         <div className="flex flex-col gap-5">
           <NavButton match="all" to="/all">
             All

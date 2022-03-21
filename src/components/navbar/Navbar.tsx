@@ -23,6 +23,7 @@ const NavBar: FC = () => {
         </div>
         <div className="flex gap-5 flex-1">
           <button
+            className="font-semibold"
             onClick={() =>
               setQuery({
                 user: currentUser?.id,
