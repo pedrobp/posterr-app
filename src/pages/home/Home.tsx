@@ -68,7 +68,7 @@ const Home: FC = () => {
             {posts.length > 0 ? (
               posts.map((p) => <Post key={p.id} post={p} />)
             ) : (
-              <div>There are no posts yet...</div>
+              <div>There are no posts to be shown here...</div>
             )}
           </div>
         </div>

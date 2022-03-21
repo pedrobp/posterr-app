@@ -1,4 +1,5 @@
 import Avatar from 'components/avatar'
+import { Button } from 'components/button'
 import Menu from 'components/menu'
 import Modal from 'components/modal'
 import Selector from 'components/selector'
@@ -22,7 +23,8 @@ const NavBar: FC = () => {
           <Signpost size={30} />
         </div>
         <div className="flex gap-5 flex-1">
-          <button
+          <Button
+            variant="raw"
             className="font-semibold"
             onClick={() =>
               setQuery({
@@ -31,7 +33,7 @@ const NavBar: FC = () => {
             }
           >
             Profile
-          </button>
+          </Button>
         </div>
 
         <Menu

@@ -2,7 +2,7 @@ import clsx from 'clsx'
 import { FC, HTMLProps, ReactNode } from 'react'
 
 interface Props extends HTMLProps<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary'
+  variant?: 'primary' | 'secondary' | 'raw'
   icon?: ReactNode
 }
 
@@ -13,8 +13,9 @@ const Button: FC<Props> = ({ variant = 'primary', icon, ...props }) => (
       {
         'text-white bg-primary hover:bg-primary hover:bg-opacity-90':
           variant === 'primary',
-        'text-primary bg-white': variant === 'secondary',
-        'filter grayscale': props.disabled,
+        'text-primary ': variant === 'secondary',
+        'border-0 ': variant === 'raw',
+        'filter grayscale cursor-default hover:bg-opacity-100': props.disabled,
       }
     )}
     onClick={props.onClick}

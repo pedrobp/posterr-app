@@ -27,27 +27,25 @@ const Profile: FC = () => {
       <div className="styled-box flex flex-col gap-5 mt-4 bg-bg p-10 w-[50vw]">
         <div className="flex gap-14 items-center">
           <Avatar size="large" user={user} />
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 flex-1">
             <span className="text-2xl font-bold">{user.name}</span>
             <span className="text-textSecondary">@{user.username} </span>
             <span className="text-textSecondary">
               Joined on {format(parseISO(user.joinedOn), 'MMM dd, yyyy')}{' '}
             </span>
-            {user.id !== currentUser.id && (
-              <Button
-                variant={
-                  currentUser.following.includes(user.id)
-                    ? 'secondary'
-                    : 'primary'
-                }
-                onClick={() => manageFollower(user.id)}
-              >
-                {currentUser.following.includes(user.id)
-                  ? 'Unfollow'
-                  : 'Follow'}
-              </Button>
-            )}
           </div>
+          {user.id !== currentUser.id && (
+            <Button
+              variant={
+                currentUser.following.includes(user.id)
+                  ? 'secondary'
+                  : 'primary'
+              }
+              onClick={() => manageFollower(user.id)}
+            >
+              {currentUser.following.includes(user.id) ? 'Unfollow' : 'Follow'}
+            </Button>
+          )}
         </div>
 
         <div className="flex">
