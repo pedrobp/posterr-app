@@ -1,6 +1,8 @@
 import Avatar from 'components/avatar'
+import { Button } from 'components/button'
 import { format, parseISO } from 'date-fns'
 import { useUsers } from 'hooks'
+import { ArrowsClockwise, Quotes } from 'phosphor-react'
 import { FC, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { Post as PostRecord } from 'types/entities'
@@ -28,7 +30,7 @@ const Post: FC<Props> = ({ post }) => {
       >
         <Avatar user={author} />
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2 w-full">
         <div className="flex gap-2 items-center">
           <span
             className="font-bold cursor-pointer"
@@ -42,6 +44,16 @@ const Post: FC<Props> = ({ post }) => {
           </span>
         </div>
         <div>{post.content}</div>
+        {
+          <div className="flex gap-4 justify-end">
+            <Button small icon={<ArrowsClockwise weight="bold" />}>
+              Repost
+            </Button>
+            <Button small icon={<Quotes weight="bold" />}>
+              Quote
+            </Button>
+          </div>
+        }
       </div>
     </div>
   )

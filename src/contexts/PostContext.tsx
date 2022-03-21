@@ -1,6 +1,6 @@
 import { subDays, subHours } from 'date-fns'
 import { useLocalStorage, useUsers } from 'hooks'
-import { createContext, FC } from 'react'
+import { createContext, FC, useCallback } from 'react'
 import { Post, VOID_FUNC } from 'types'
 import { v4 as genId } from 'uuid'
 import { defaultUsers } from './UserContext'
@@ -40,19 +40,22 @@ const PostContextProvider: FC = ({ children }) => {
   const [posts, setPosts] = useLocalStorage<Post[]>('posts', defaultPosts)
   const { currentUser } = useUsers()
 
-  const addPost = (content: string) => {
-    if (!currentUser) return
+  const addPost = useCallback(
+    (content: string) => {
+      if (!currentUser) return
 
-    setPosts([
-      {
-        id: genId(),
-        authorId: currentUser.id,
-        content,
-        createdAt: new Date().toISOString(),
-      },
-      ...posts,
-    ])
-  }
+      setPosts([
+        {
+          id: genId(),
+          authorId: currentUser.id,
+          content,
+          createdAt: new Date().toISOString(),
+        },
+        ...posts,
+      ])
+    },
+    [currentUser, posts, setPosts]
+  )
 
   return (
     <PostContext.Provider value={{ posts, addPost }}>
