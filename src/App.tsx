@@ -1,4 +1,4 @@
-import Navbar from 'components/navbar'
+import { Navbar } from 'components/navbar'
 import { PostContextProvider, UserContextProvider } from 'contexts'
 import { FC } from 'react'
 import { Navigate, Route, Routes } from 'react-router-dom'

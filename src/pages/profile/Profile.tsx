@@ -72,7 +72,7 @@ const Profile: FC = () => {
 
         {isCurrentUser && <NewPost />}
 
-        <div className="flex flex-col gap-2 h-[30vh] overflow-auto">
+        <div className="flex flex-col gap-2 max-h-[30vh] overflow-auto">
           {userPosts.map((p) => (
             <Post key={p.id} post={p} />
           ))}

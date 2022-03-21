@@ -8,7 +8,7 @@ import { Signpost, UserSwitch } from 'phosphor-react'
 import { FC, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-const NavBar: FC = () => {
+const Navbar: FC = () => {
   const { users, currentUser, updateCurrentUser } = useUsers()
   const [, setQuery] = useSearchParams()
   const [selectorOpen, setSelectorOpen] = useState(false)
@@ -68,4 +68,4 @@ const NavBar: FC = () => {
   )
 }
 
-export default NavBar
+export default Navbar

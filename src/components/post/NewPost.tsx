@@ -4,11 +4,14 @@ import TextArea from 'components/input'
 import { usePosts } from 'hooks'
 import { Check, Plus } from 'phosphor-react'
 import { FC, useState } from 'react'
+import { useNavigate, useParams } from 'react-router-dom'
+import { HomeRoute } from 'types'
 
 const NewPost: FC = () => {
   const [postOpen, setPostOpen] = useState(false)
   const [postContent, setPostContent] = useState('')
-
+  const navigate = useNavigate()
+  const params = useParams<HomeRoute>()
   const { addPost } = usePosts()
 
   return (
@@ -32,6 +35,7 @@ const NewPost: FC = () => {
             if (postOpen) {
               addPost(postContent)
               setPostContent('')
+              if (params.mode === 'following') navigate('/all')
             }
             setPostOpen(!postOpen)
           }}
