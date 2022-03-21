@@ -12,7 +12,7 @@ const Modal: FC<Props> = ({ children, open, onClose }) => {
   useOnClickOutside(ref, onClose)
 
   return open ? (
-    <div className="absolute top-0 left-0 w-screen h-screen bg-black bg-opacity-20 grid place-content-center z-10">
+    <div className="fixed top-0 left-0 w-screen h-screen bg-black bg-opacity-20 grid place-content-center z-10">
       <div ref={ref}>{children}</div>
     </div>
   ) : null

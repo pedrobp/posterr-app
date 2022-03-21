@@ -24,7 +24,7 @@ const Profile: FC = () => {
   if (!user || !currentUser) return null
   return (
     <Modal open={!!user} onClose={() => setQuery({})}>
-      <div className="styled-box flex flex-col gap-5 mt-4 bg-bg p-10">
+      <div className="styled-box flex flex-col gap-5 mt-4 bg-bg p-10 w-[50vw]">
         <div className="flex gap-14 items-center">
           <Avatar size="large" user={user} />
           <div className="flex flex-col gap-2">
@@ -67,7 +67,7 @@ const Profile: FC = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 max-h-[50vh] overflow-auto">
           {userPosts.map((p) => (
             <Post key={p.id} post={p} />
           ))}

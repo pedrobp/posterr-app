@@ -16,7 +16,7 @@ const NavBar: FC = () => {
 
   return (
     <>
-      <div className="bg-primaryDark w-screen flex items-center sticky top-0 left-0 py-3 px-36 text-textDark gap-10">
+      <div className="bg-primaryDark w-full flex items-center sticky top-0 left-0 py-3 px-36 text-textDark gap-10 z-10">
         <div className="text-xl font-semibold flex gap-2">
           Posterr
           <Signpost size={30} />

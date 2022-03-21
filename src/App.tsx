@@ -10,7 +10,7 @@ const App: FC = () => {
       <PostContextProvider>
         <Navbar />
 
-        <div className="max-w-[1024px] m-auto">
+        <div className="max-w-screen-lg m-auto">
           <Routes>
             <Route path="/" element={<Navigate to="/all" />} />
             <Route path="/:mode" element={<Home />} />

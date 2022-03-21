@@ -44,7 +44,14 @@ const Home: FC = () => {
 
           <div className="flex justify-end">
             <Button
-              onClick={() => setPostOpen(!postOpen)}
+              onClick={() => {
+                if (postOpen) {
+                  addPost(postContent)
+                  setPostContent('')
+                }
+                setPostOpen(!postOpen)
+              }}
+              disabled={postOpen && postContent.trim() === ''}
               icon={
                 postOpen ? (
                   <Check size={22} weight="bold" />
@@ -57,7 +64,7 @@ const Home: FC = () => {
             </Button>
           </div>
 
-          <div className="flex flex-col gap-5 mt-5">
+          <div className="flex flex-col gap-5 my-5">
             {posts.length > 0 ? (
               posts.map((p) => <Post key={p.id} post={p} />)
             ) : (

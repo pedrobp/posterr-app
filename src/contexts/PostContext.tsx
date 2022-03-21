@@ -1,5 +1,5 @@
 import { subDays, subHours } from 'date-fns'
-import { useLocalStorage } from 'hooks'
+import { useLocalStorage, useUsers } from 'hooks'
 import { createContext, FC } from 'react'
 import { Post, VOID_FUNC } from 'types'
 import { v4 as genId } from 'uuid'
@@ -7,7 +7,7 @@ import { defaultUsers } from './UserContext'
 
 interface ContextProps {
   posts: Post[]
-  addPost: (p: Post) => void
+  addPost: (content: string) => void
 }
 
 export const PostContext = createContext<ContextProps>({
@@ -38,9 +38,20 @@ const defaultPosts: Post[] = [
 
 const PostContextProvider: FC = ({ children }) => {
   const [posts, setPosts] = useLocalStorage<Post[]>('posts', defaultPosts)
+  const { currentUser } = useUsers()
 
-  const addPost = (post: Post) => {
-    setPosts([post, ...posts])
+  const addPost = (content: string) => {
+    if (!currentUser) return
+
+    setPosts([
+      {
+        id: genId(),
+        authorId: currentUser.id,
+        content,
+        createdAt: new Date().toISOString(),
+      },
+      ...posts,
+    ])
   }
 
   return (
