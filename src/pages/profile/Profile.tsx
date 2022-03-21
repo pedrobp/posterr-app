@@ -1,7 +1,7 @@
 import Avatar from 'components/avatar'
 import { Button } from 'components/button'
 import Modal from 'components/modal'
-import Post from 'components/post'
+import { NewPost, Post } from 'components/post'
 import { format, parseISO } from 'date-fns'
 import { usePosts, useUsers } from 'hooks'
 import { FC, useMemo } from 'react'
@@ -21,10 +21,15 @@ const Profile: FC = () => {
     [posts, user?.id]
   )
 
+  const isCurrentUser = useMemo(
+    () => user?.id === currentUser?.id,
+    [currentUser?.id, user?.id]
+  )
+
   if (!user || !currentUser) return null
   return (
     <Modal open={!!user} onClose={() => setQuery({})}>
-      <div className="styled-box flex flex-col gap-5 mt-4 bg-bg p-10 w-[50vw]">
+      <div className="styled-box flex flex-col gap-5 bg-bg px-10 py-5 w-[700px]">
         <div className="flex gap-14 items-center">
           <Avatar size="large" user={user} />
           <div className="flex flex-col gap-2 flex-1">
@@ -34,7 +39,7 @@ const Profile: FC = () => {
               Joined on {format(parseISO(user.joinedOn), 'MMM dd, yyyy')}{' '}
             </span>
           </div>
-          {user.id !== currentUser.id && (
+          {!isCurrentUser && (
             <Button
               variant={
                 currentUser.following.includes(user.id)
@@ -48,7 +53,7 @@ const Profile: FC = () => {
           )}
         </div>
 
-        <div className="flex">
+        <div className="flex text-center">
           <div className="flex flex-col gap-2 flex-1">
             <span className="font-bold">Followers</span>
             <span>
@@ -65,7 +70,9 @@ const Profile: FC = () => {
           </div>
         </div>
 
-        <div className="flex flex-col gap-2 max-h-[50vh] overflow-auto">
+        {isCurrentUser && <NewPost />}
+
+        <div className="flex flex-col gap-2 h-[30vh] overflow-auto">
           {userPosts.map((p) => (
             <Post key={p.id} post={p} />
           ))}

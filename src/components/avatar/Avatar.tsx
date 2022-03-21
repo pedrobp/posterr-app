@@ -12,9 +12,9 @@ const Avatar: FC<Props> = ({ user, size = 'medium' }) => {
       case 'small':
         return 'h-8 w-8'
       case 'medium':
-        return 'h-12 w-12'
+        return 'h-14 w-14'
       case 'large':
-        return 'h-40 w-40'
+        return 'h-36 w-36'
     }
   }, [size])
 

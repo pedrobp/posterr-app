@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer components {
+  body {
+    min-width: 700px;
+  }
+
   .styled-box {
     @apply border-2 rounded-lg shadow-md p-5;
   }
