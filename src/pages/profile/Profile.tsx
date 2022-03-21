@@ -29,7 +29,7 @@ const Profile: FC = () => {
   if (!user || !currentUser) return null
   return (
     <Modal open={!!user} onClose={() => setQuery({})}>
-      <div className="styled-box flex flex-col gap-5 bg-bg px-10 py-5 w-[700px]">
+      <div className="styled-box flex flex-col gap-5 bg-bg p-10 w-[700px]">
         <div className="flex gap-14 items-center">
           <Avatar size="large" user={user} />
           <div className="flex flex-col gap-2 flex-1">
