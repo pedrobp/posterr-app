@@ -27,7 +27,7 @@ const Post: FC<Props> = ({ post }) => {
   if (!author) return null
 
   return (
-    <div className="styled-box flex gap-4 w-full items-center">
+    <div className="styled-box flex gap-3 w-full">
       <div
         className="cursor-pointer"
         onClick={() => setQuery({ user: author.id })}

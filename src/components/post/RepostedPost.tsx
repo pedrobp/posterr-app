@@ -19,7 +19,7 @@ const RepostedPost: FC<Props> = ({ id }) => {
 
   if (!post || !author) return null
   return (
-    <div className="styled-box p-2 flex gap-4 w-full items-center">
+    <div className="styled-box p-2 flex gap-2 w-full">
       <Avatar size="small" user={author} />
       <div className="flex flex-col gap-1">
         <PostHeader post={post} author={author} hideActions />
