@@ -7,12 +7,16 @@ import { defaultUsers } from './UserContext'
 
 interface ContextProps {
   posts: Post[]
-  addPost: (content: string) => void
+  post: (content: string) => void
+  repost: (id: ID) => void
+  quote: (id: ID, content: string) => void
 }
 
 export const PostContext = createContext<ContextProps>({
   posts: [],
-  addPost: VOID_FUNC,
+  post: VOID_FUNC,
+  repost: VOID_FUNC,
+  quote: VOID_FUNC,
 })
 
 const defaultPosts: Post[] = [
@@ -40,7 +44,7 @@ const PostContextProvider: FC = ({ children }) => {
   const [posts, setPosts] = useLocalStorage<Post[]>('posts', defaultPosts)
   const { currentUser } = useUsers()
 
-  const addPost = useCallback(
+  const post = useCallback(
     (content: string) => {
       if (!currentUser) return
 
@@ -57,8 +61,41 @@ const PostContextProvider: FC = ({ children }) => {
     [currentUser, posts, setPosts]
   )
 
+  const repost = useCallback(
+    (id: ID) => {
+      if (!currentUser) return
+      setPosts([
+        {
+          id: genId(),
+          authorId: currentUser.id,
+          repostId: id,
+          createdAt: new Date().toISOString(),
+        },
+        ...posts,
+      ])
+    },
+    [currentUser, posts, setPosts]
+  )
+
+  const quote = useCallback(
+    (id: ID, content: string) => {
+      if (!currentUser) return
+      setPosts([
+        {
+          id: genId(),
+          authorId: currentUser.id,
+          content,
+          quoteId: id,
+          createdAt: new Date().toISOString(),
+        },
+        ...posts,
+      ])
+    },
+    [currentUser, posts, setPosts]
+  )
+
   return (
-    <PostContext.Provider value={{ posts, addPost }}>
+    <PostContext.Provider value={{ posts, post, repost, quote }}>
       {children}
     </PostContext.Provider>
   )

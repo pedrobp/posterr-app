@@ -1,7 +1,7 @@
 export interface Post {
   id: ID
   authorId: ID
-  content: string
+  content?: string
   createdAt: string
   quoteId?: ID
   repostId?: ID

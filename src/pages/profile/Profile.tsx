@@ -29,7 +29,7 @@ const Profile: FC = () => {
   if (!user || !currentUser) return null
   return (
     <Modal open={!!user} onClose={() => setQuery({})}>
-      <div className="styled-box flex flex-col gap-5 bg-bg p-10 w-[700px]">
+      <div className="styled-box flex flex-col gap-5 bg-bg p-10 w-[700px] max-h-[95vh]">
         <div className="flex gap-14 items-center">
           <Avatar size="large" user={user} />
           <div className="flex flex-col gap-2 flex-1">
@@ -72,7 +72,7 @@ const Profile: FC = () => {
 
         {isCurrentUser && <NewPost />}
 
-        <div className="flex flex-col gap-2 max-h-[30vh] overflow-auto">
+        <div className="flex flex-col gap-2  overflow-auto">
           {userPosts.map((p) => (
             <Post key={p.id} post={p} />
           ))}

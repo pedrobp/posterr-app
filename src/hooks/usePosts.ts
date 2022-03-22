@@ -3,7 +3,7 @@ import { useContext } from 'react'
 import { useUsers } from './useUsers'
 
 export const usePosts = (filter?: 'all' | 'following') => {
-  const { posts, addPost } = useContext(PostContext)
+  const { posts, ...context } = useContext(PostContext)
   const { currentUser } = useUsers()
 
   const processedPosts = posts
@@ -16,6 +16,6 @@ export const usePosts = (filter?: 'all' | 'following') => {
 
   return {
     posts: processedPosts,
-    addPost,
+    ...context,
   }
 }

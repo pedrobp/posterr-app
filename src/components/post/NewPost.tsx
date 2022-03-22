@@ -12,12 +12,13 @@ const NewPost: FC = () => {
   const [postContent, setPostContent] = useState('')
   const navigate = useNavigate()
   const params = useParams<HomeRoute>()
-  const { addPost } = usePosts()
+  const { post } = usePosts()
 
   return (
     <>
       <Collapse open={postOpen}>
         <TextArea
+          id="add-post-content"
           maxLength={777}
           value={postContent}
           placeholder="What's up?"
@@ -33,11 +34,13 @@ const NewPost: FC = () => {
         <Button
           onClick={() => {
             if (postOpen) {
-              addPost(postContent)
+              post(postContent)
               setPostContent('')
               if (params.mode === 'following') navigate('/all')
+            } else {
+              setPostOpen(true)
+              document.getElementById('add-post-content')?.focus()
             }
-            setPostOpen(!postOpen)
           }}
           disabled={postOpen && postContent.trim() === ''}
           icon={
@@ -48,7 +51,7 @@ const NewPost: FC = () => {
             )
           }
         >
-          {postOpen ? 'Post!' : 'Add Post'}
+          {postOpen ? 'Post!' : 'New Post'}
         </Button>
       </div>
     </>
