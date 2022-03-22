@@ -36,7 +36,12 @@ const PostHeader: FC<Props> = ({ post, author, hideActions }) => {
             icon={<ArrowsClockwise weight="bold" />}
             onClick={() => repost(post.id)}
           />
-          <Button small variant="secondary" icon={<Quotes weight="bold" />} />
+          <Button
+            small
+            variant="secondary"
+            icon={<Quotes weight="bold" />}
+            onClick={() => setQuery({ quote: post.id })}
+          />
         </div>
       )}
     </div>

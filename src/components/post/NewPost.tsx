@@ -1,18 +1,23 @@
+/* eslint-disable quotes */
 import { Button } from 'components/button'
 import Collapse from 'components/collapse'
 import TextArea from 'components/input'
 import { usePosts } from 'hooks'
 import { Check, Plus } from 'phosphor-react'
 import { FC, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { HomeRoute } from 'types'
 
-const NewPost: FC = () => {
-  const [postOpen, setPostOpen] = useState(false)
+interface Props {
+  quoteId?: ID
+}
+const NewPost: FC<Props> = ({ quoteId }) => {
+  const [postOpen, setPostOpen] = useState(!!quoteId)
   const [postContent, setPostContent] = useState('')
+  const [, setQuery] = useSearchParams()
   const navigate = useNavigate()
   const params = useParams<HomeRoute>()
-  const { post } = usePosts()
+  const { post, quote } = usePosts()
 
   return (
     <>
@@ -21,9 +26,10 @@ const NewPost: FC = () => {
           id="add-post-content"
           maxLength={777}
           value={postContent}
-          placeholder="What's up?"
+          placeholder={quoteId ? 'Quote the post above!' : "What's up?"}
           onChange={(e) => setPostContent(e.currentTarget.value)}
           rows={4}
+          autoFocus
         />
         <div className="text-textSecondary text-xs leading-tight">
           {postContent.length}/777
@@ -33,7 +39,10 @@ const NewPost: FC = () => {
       <div className="flex justify-end">
         <Button
           onClick={() => {
-            if (postOpen) {
+            if (quoteId) {
+              quote(quoteId, postContent)
+              setQuery({})
+            } else if (postOpen) {
               post(postContent)
               setPostContent('')
               if (params.mode === 'following') navigate('/all')

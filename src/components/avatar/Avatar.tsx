@@ -10,7 +10,7 @@ const Avatar: FC<Props> = ({ user, size = 'medium' }) => {
   const getAvatarSize = useMemo(() => {
     switch (size) {
       case 'small':
-        return 'h-8 w-8'
+        return 'h-8 w-8 min-w-[2rem] min-h-[2rem]'
       case 'medium':
         return 'h-14 w-14'
       case 'large':

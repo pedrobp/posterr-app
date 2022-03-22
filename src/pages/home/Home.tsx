@@ -1,5 +1,6 @@
 import { NavButton } from 'components/button'
 import { NewPost, Post } from 'components/post'
+import QuotePost from 'components/post/QuotePost'
 import { usePosts } from 'hooks'
 import { Profile } from 'pages'
 import { FC } from 'react'
@@ -37,6 +38,7 @@ const Home: FC = () => {
       </div>
 
       {query.get('user') && <Profile />}
+      {query.get('quote') && <QuotePost />}
     </>
   )
 }

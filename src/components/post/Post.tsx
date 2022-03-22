@@ -1,7 +1,5 @@
 import Avatar from 'components/avatar'
-import { Button } from 'components/button'
-import { usePosts, useUsers } from 'hooks'
-import { ArrowsClockwise, Quotes } from 'phosphor-react'
+import { useUsers } from 'hooks'
 import { FC, useMemo } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { Post as PostRecord } from 'types/entities'
@@ -36,13 +34,20 @@ const Post: FC<Props> = ({ post }) => {
       >
         <Avatar user={author} />
       </div>
-      <div className="flex flex-col gap-2 w-full">
-        <PostHeader post={post} author={author} hideActions={isCurrentUser} />
+      <div className="flex flex-col gap-1 w-full">
+        <PostHeader
+          post={post}
+          author={author}
+          hideActions={isCurrentUser || !!post.repostId}
+        />
 
         {post.repostId ? (
           <RepostedPost id={post.repostId} />
         ) : (
-          <div>{post.content}</div>
+          <>
+            <div>{post.content}</div>
+            {post.quoteId && <RepostedPost id={post.quoteId} />}
+          </>
         )}
       </div>
     </div>

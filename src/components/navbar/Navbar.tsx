@@ -32,7 +32,7 @@ const Navbar: FC = () => {
               })
             }
           >
-            Profile
+            My Profile
           </Button>
         </div>
 
