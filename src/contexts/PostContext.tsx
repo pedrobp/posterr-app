@@ -1,5 +1,5 @@
 import { subDays, subHours } from 'date-fns'
-import { useLocalStorage, useUsers } from 'hooks'
+import { useLocalStorage, useUsers, useToast } from 'hooks'
 import { createContext, FC, useCallback } from 'react'
 import { Post, VOID_FUNC } from 'types'
 import { v4 as genId } from 'uuid'
@@ -43,6 +43,7 @@ const defaultPosts: Post[] = [
 const PostContextProvider: FC = ({ children }) => {
   const [posts, setPosts] = useLocalStorage<Post[]>('posts', defaultPosts)
   const { currentUser } = useUsers()
+  const { toast } = useToast()
 
   const post = useCallback(
     (content: string) => {
@@ -57,8 +58,9 @@ const PostContextProvider: FC = ({ children }) => {
         },
         ...posts,
       ])
+      toast('Your post was sucessfully posted! 🥳')
     },
-    [currentUser, posts, setPosts]
+    [currentUser, posts, setPosts, toast]
   )
 
   const repost = useCallback(
@@ -73,8 +75,9 @@ const PostContextProvider: FC = ({ children }) => {
         },
         ...posts,
       ])
+      toast('The post was sucessfully reposted! 🥳')
     },
-    [currentUser, posts, setPosts]
+    [currentUser, posts, setPosts, toast]
   )
 
   const quote = useCallback(
@@ -90,8 +93,9 @@ const PostContextProvider: FC = ({ children }) => {
         },
         ...posts,
       ])
+      toast('The post was sucessfully quoted! 🥳')
     },
-    [currentUser, posts, setPosts]
+    [currentUser, posts, setPosts, toast]
   )
 
   return (

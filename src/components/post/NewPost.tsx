@@ -4,7 +4,7 @@ import Collapse from 'components/collapse'
 import TextArea from 'components/input'
 import { usePosts } from 'hooks'
 import { Check, Plus } from 'phosphor-react'
-import { FC, useState } from 'react'
+import { FC, useCallback, useState } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
 import { HomeRoute } from 'types'
 
@@ -18,6 +18,26 @@ const NewPost: FC<Props> = ({ quoteId }) => {
   const navigate = useNavigate()
   const params = useParams<HomeRoute>()
   const { post, quote } = usePosts()
+
+  const submit = useCallback(() => {
+    if (quoteId) {
+      quote(quoteId, postContent)
+      setQuery({})
+    } else if (postOpen) {
+      post(postContent)
+      setPostContent('')
+      if (params.mode === 'following') navigate('/all')
+    }
+  }, [
+    navigate,
+    params.mode,
+    post,
+    postContent,
+    postOpen,
+    quote,
+    quoteId,
+    setQuery,
+  ])
 
   return (
     <>
@@ -39,13 +59,8 @@ const NewPost: FC<Props> = ({ quoteId }) => {
       <div className="flex justify-end">
         <Button
           onClick={() => {
-            if (quoteId) {
-              quote(quoteId, postContent)
-              setQuery({})
-            } else if (postOpen) {
-              post(postContent)
-              setPostContent('')
-              if (params.mode === 'following') navigate('/all')
+            if (postOpen) {
+              submit()
             } else {
               setPostOpen(true)
               document.getElementById('add-post-content')?.focus()
