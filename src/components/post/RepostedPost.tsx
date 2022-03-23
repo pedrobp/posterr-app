@@ -23,7 +23,7 @@ const RepostedPost: FC<Props> = ({ id }) => {
       <Avatar size="small" user={author} />
       <div className="flex flex-col gap-1">
         <PostHeader post={post} author={author} hideActions />
-        <div>{post.content}</div>
+        <p className="break-words break-all">{post.content}</p>
       </div>
     </div>
   )

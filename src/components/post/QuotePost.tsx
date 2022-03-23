@@ -17,7 +17,7 @@ const QuotePost: FC = () => {
   if (!post) return null
   return (
     <Modal open onClose={() => setQuery({})}>
-      <div className="styled-box flex flex-col gap-5 bg-bg p-10 w-[600px] max-h-[80vh]">
+      <div className="styled-box flex flex-col gap-5 bg-bg p-10 w-[600px] max-h-[90vh]">
         <RepostedPost id={post.id} />
         <NewPost quoteId={post.id} />
       </div>

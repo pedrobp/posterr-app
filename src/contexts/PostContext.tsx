@@ -1,6 +1,6 @@
-import { subDays, subHours } from 'date-fns'
+import { isSameDay, parseISO, subDays } from 'date-fns'
 import { useLocalStorage, useUsers, useToast } from 'hooks'
-import { createContext, FC, useCallback } from 'react'
+import { createContext, FC, useCallback, useMemo } from 'react'
 import { Post, VOID_FUNC } from 'types'
 import { v4 as genId } from 'uuid'
 import { defaultUsers } from './UserContext'
@@ -10,6 +10,7 @@ interface ContextProps {
   post: (content: string) => void
   repost: (id: ID) => void
   quote: (id: ID, content: string) => void
+  dailyLimitReached: boolean
 }
 
 export const PostContext = createContext<ContextProps>({
@@ -17,6 +18,7 @@ export const PostContext = createContext<ContextProps>({
   post: VOID_FUNC,
   repost: VOID_FUNC,
   quote: VOID_FUNC,
+  dailyLimitReached: false,
 })
 
 const defaultPosts: Post[] = [
@@ -24,19 +26,19 @@ const defaultPosts: Post[] = [
     id: genId(),
     authorId: defaultUsers[0].id,
     content: 'First Posterr post! 😀',
-    createdAt: subDays(new Date(), 1).toISOString(),
+    createdAt: subDays(new Date(), 2).toISOString(),
   },
   {
     id: genId(),
     authorId: defaultUsers[1].id,
     content: 'Testing Posterr out, looking good so far.',
-    createdAt: subHours(new Date(), 2).toISOString(),
+    createdAt: subDays(new Date(), 1).toISOString(),
   },
   {
     id: genId(),
     authorId: defaultUsers[2].id,
     content: '🤩🤩🤩🤩🤩',
-    createdAt: new Date().toISOString(),
+    createdAt: subDays(new Date(), 1).toISOString(),
   },
 ]
 
@@ -45,9 +47,22 @@ const PostContextProvider: FC = ({ children }) => {
   const { currentUser } = useUsers()
   const { toast } = useToast()
 
+  const dailyLimitReached = useMemo(() => {
+    const today = new Date()
+    return (
+      posts.filter(
+        (p) =>
+          isSameDay(parseISO(p.createdAt), today) &&
+          p.authorId === currentUser?.id
+      ).length >= 5
+    )
+  }, [currentUser?.id, posts])
+
   const post = useCallback(
     (content: string) => {
       if (!currentUser) return
+      if (dailyLimitReached)
+        return toast('You reached the limit number of posts per day! 🚫')
 
       setPosts([
         {
@@ -60,12 +75,16 @@ const PostContextProvider: FC = ({ children }) => {
       ])
       toast('Your post was sucessfully posted! 🥳')
     },
-    [currentUser, posts, setPosts, toast]
+    [currentUser, dailyLimitReached, posts, setPosts, toast]
   )
 
   const repost = useCallback(
     (id: ID) => {
       if (!currentUser) return
+
+      if (dailyLimitReached)
+        return toast('You reached the limit number of posts per day! 🚫')
+
       setPosts([
         {
           id: genId(),
@@ -77,12 +96,15 @@ const PostContextProvider: FC = ({ children }) => {
       ])
       toast('The post was sucessfully reposted! 🥳')
     },
-    [currentUser, posts, setPosts, toast]
+    [currentUser, dailyLimitReached, posts, setPosts, toast]
   )
 
   const quote = useCallback(
     (id: ID, content: string) => {
       if (!currentUser) return
+      if (dailyLimitReached)
+        return toast('You reached the limit number of posts per day! 🚫')
+
       setPosts([
         {
           id: genId(),
@@ -95,11 +117,13 @@ const PostContextProvider: FC = ({ children }) => {
       ])
       toast('The post was sucessfully quoted! 🥳')
     },
-    [currentUser, posts, setPosts, toast]
+    [currentUser, dailyLimitReached, posts, setPosts, toast]
   )
 
   return (
-    <PostContext.Provider value={{ posts, post, repost, quote }}>
+    <PostContext.Provider
+      value={{ posts, post, repost, quote, dailyLimitReached }}
+    >
       {children}
     </PostContext.Provider>
   )

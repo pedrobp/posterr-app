@@ -45,7 +45,7 @@ const Post: FC<Props> = ({ post }) => {
           <RepostedPost id={post.repostId} />
         ) : (
           <>
-            <div>{post.content}</div>
+            <p className="break-words break-all">{post.content}</p>
             {post.quoteId && <RepostedPost id={post.quoteId} />}
           </>
         )}

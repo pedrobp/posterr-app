@@ -1,6 +1,6 @@
 import { Button } from 'components/button'
 import { format, parseISO } from 'date-fns'
-import { usePosts } from 'hooks'
+import { usePosts, useToast } from 'hooks'
 import { ArrowsClockwise, Quotes } from 'phosphor-react'
 import { FC } from 'react'
 import { useSearchParams } from 'react-router-dom'
@@ -14,7 +14,8 @@ interface Props {
 
 const PostHeader: FC<Props> = ({ post, author, hideActions }) => {
   const [, setQuery] = useSearchParams()
-  const { repost } = usePosts()
+  const { repost, dailyLimitReached } = usePosts()
+  const { toast } = useToast()
 
   return (
     <div className="flex gap-2 items-center">
@@ -34,13 +35,21 @@ const PostHeader: FC<Props> = ({ post, author, hideActions }) => {
             small
             variant="secondary"
             icon={<ArrowsClockwise weight="bold" />}
-            onClick={() => repost(post.id)}
+            onClick={() => {
+              if (dailyLimitReached)
+                toast('You reached the limit number of posts per day! 🚫')
+              else repost(post.id)
+            }}
           />
           <Button
             small
             variant="secondary"
             icon={<Quotes weight="bold" />}
-            onClick={() => setQuery({ quote: post.id })}
+            onClick={() => {
+              if (dailyLimitReached)
+                toast('You reached the limit number of posts per day! 🚫')
+              else setQuery({ quote: post.id })
+            }}
           />
         </div>
       )}

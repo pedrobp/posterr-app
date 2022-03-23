@@ -2,7 +2,7 @@
 import { Button } from 'components/button'
 import Collapse from 'components/collapse'
 import { TextArea } from 'components/input'
-import { usePosts } from 'hooks'
+import { usePosts, useToast } from 'hooks'
 import { Check, Plus } from 'phosphor-react'
 import { FC, useCallback, useState } from 'react'
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom'
@@ -17,7 +17,8 @@ const NewPost: FC<Props> = ({ quoteId }) => {
   const [, setQuery] = useSearchParams()
   const navigate = useNavigate()
   const params = useParams<HomeRoute>()
-  const { post, quote } = usePosts()
+  const { post, quote, dailyLimitReached } = usePosts()
+  const { toast } = useToast()
 
   const submit = useCallback(() => {
     if (quoteId) {
@@ -60,7 +61,9 @@ const NewPost: FC<Props> = ({ quoteId }) => {
       <div className="flex justify-end">
         <Button
           onClick={() => {
-            if (postOpen) {
+            if (dailyLimitReached)
+              toast('You reached the limit number of posts per day! 🚫')
+            else if (postOpen) {
               submit()
             } else {
               setPostOpen(true)
