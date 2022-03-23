@@ -51,26 +51,29 @@ const Profile: FC = () => {
               {currentUser.following.includes(user.id) ? 'Unfollow' : 'Follow'}
             </Button>
           )}
+          <div className="flex flex-col text-center gap-5">
+            <div className="flex gap-2">
+              <span className="font-bold">Followers:</span>
+              <span>
+                {users.filter((u) => u.following.includes(user.id)).length}
+              </span>
+            </div>
+            <div className="flex gap-2">
+              <span className="font-bold">Following:</span>
+              <span>{user.following.length}</span>
+            </div>
+            <div className="flex gap-2">
+              <span className="font-bold">Posts:</span>
+              <span>{userPosts?.length}</span>
+            </div>
+          </div>
         </div>
 
-        <div className="flex text-center">
-          <div className="flex flex-col gap-2 flex-1">
-            <span className="font-bold">Followers</span>
-            <span>
-              {users.filter((u) => u.following.includes(user.id)).length}
-            </span>
+        {isCurrentUser && (
+          <div>
+            <NewPost />
           </div>
-          <div className="flex flex-col gap-2 flex-1">
-            <span className="font-bold">Following</span>
-            <span>{user.following.length}</span>
-          </div>
-          <div className="flex flex-col gap-2 flex-1">
-            <span className="font-bold">Posts</span>
-            <span>{userPosts?.length}</span>
-          </div>
-        </div>
-
-        {isCurrentUser && <NewPost />}
+        )}
 
         <div className="flex flex-col gap-2  overflow-auto">
           {userPosts.map((p) => (
