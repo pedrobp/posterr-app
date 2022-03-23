@@ -28,6 +28,7 @@ const NewPost: FC<Props> = ({ quoteId }) => {
       setPostContent('')
       if (params.mode === 'following') navigate('/all')
     }
+    setPostOpen(false)
   }, [
     navigate,
     params.mode,
