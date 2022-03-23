@@ -31,7 +31,7 @@ const Navbar: FC = () => {
           <Button
             variant="raw"
             className="font-semibold"
-            onClick={() => navigate('/home')}
+            onClick={() => navigate('/all')}
           >
             Home
           </Button>
