@@ -20,7 +20,7 @@ export const UserContext = createContext<ContextProps>({
 export const defaultUsers: User[] = [
   {
     id: genId(),
-    username: 'john.poster',
+    username: 'john19poster',
     name: 'John Poster',
     following: [],
     joinedOn: new Date().toISOString(),
