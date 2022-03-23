@@ -6,23 +6,35 @@ import Selector from 'components/selector'
 import { useUsers } from 'hooks'
 import { Signpost, UserSwitch } from 'phosphor-react'
 import { FC, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 const Navbar: FC = () => {
   const { users, currentUser, updateCurrentUser } = useUsers()
   const [, setQuery] = useSearchParams()
+  const navigate = useNavigate()
   const [selectorOpen, setSelectorOpen] = useState(false)
 
   if (!currentUser) return null
 
   return (
     <>
-      <div className="bg-primaryDark w-full flex items-center sticky top-0 left-0 py-3 px-36 text-textDark gap-10 z-10">
-        <div className="text-xl font-semibold flex gap-2">
+      <div className="bg-primaryDark w-full flex items-center sticky top-0 left-0 py-3 px-28 text-textDark gap-10 z-10">
+        <Button
+          variant="raw"
+          className="text-xl font-semibold flex gap-2 cursor-pointer fontx"
+          onClick={() => navigate('/')}
+        >
           Posterr
           <Signpost size={30} />
-        </div>
-        <div className="flex gap-5 flex-1">
+        </Button>
+        <div className="flex gap-3 flex-1">
+          <Button
+            variant="raw"
+            className="font-semibold"
+            onClick={() => navigate('/home')}
+          >
+            Home
+          </Button>
           <Button
             variant="raw"
             className="font-semibold"
@@ -33,6 +45,13 @@ const Navbar: FC = () => {
             }
           >
             My Profile
+          </Button>
+          <Button
+            variant="raw"
+            className="font-semibold"
+            onClick={() => navigate('/search')}
+          >
+            Search
           </Button>
         </div>
 

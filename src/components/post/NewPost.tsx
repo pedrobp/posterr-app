@@ -1,7 +1,7 @@
 /* eslint-disable quotes */
 import { Button } from 'components/button'
 import Collapse from 'components/collapse'
-import TextArea from 'components/input'
+import { TextArea } from 'components/input'
 import { usePosts } from 'hooks'
 import { Check, Plus } from 'phosphor-react'
 import { FC, useCallback, useState } from 'react'

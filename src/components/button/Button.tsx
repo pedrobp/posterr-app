@@ -18,7 +18,8 @@ const Button: FC<Props> = ({ variant = 'primary', icon, small, ...props }) => (
         'border-0 ': variant === 'raw',
         'filter grayscale cursor-default hover:bg-opacity-100': props.disabled,
         'p-1': small,
-      }
+      },
+      props.className
     )}
     onClick={props.onClick}
     disabled={props.disabled}

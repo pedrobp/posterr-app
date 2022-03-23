@@ -1,16 +1,13 @@
 import { NavButton } from 'components/button'
 import { NewPost, Post } from 'components/post'
-import QuotePost from 'components/post/QuotePost'
 import { usePosts } from 'hooks'
-import { Profile } from 'pages'
 import { FC } from 'react'
-import { useParams, useSearchParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { HomeRoute } from 'types'
 
 const Home: FC = () => {
   const params = useParams<HomeRoute>()
   const { posts } = usePosts(params.mode)
-  const [query] = useSearchParams()
 
   return (
     <>
@@ -31,14 +28,13 @@ const Home: FC = () => {
             {posts.length > 0 ? (
               posts.map((p) => <Post key={p.id} post={p} />)
             ) : (
-              <div>There are no posts to be shown here...</div>
+              <div className="text-textSecondary">
+                There are no posts to be shown here...
+              </div>
             )}
           </div>
         </div>
       </div>
-
-      {query.get('user') && <Profile />}
-      {query.get('quote') && <QuotePost />}
     </>
   )
 }

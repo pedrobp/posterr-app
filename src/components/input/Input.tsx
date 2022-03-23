@@ -1,11 +1,10 @@
 import { FC, HTMLProps } from 'react'
 
-const TextArea: FC<HTMLProps<HTMLTextAreaElement>> = (props) => (
-  <textarea
+const Input: FC<HTMLProps<HTMLInputElement>> = (props) => (
+  <input
     {...props}
-    style={{ resize: 'none' }}
     className="w-full border-2 rounded-md focus:border-primary outline-none p-2"
   />
 )
 
-export default TextArea
+export default Input
