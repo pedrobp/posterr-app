@@ -10,11 +10,20 @@ OR
 
 - `npm i` and `npm start`
 
+The application runs on port 3003.
+
 ## Application Overview
 
-Posterr was built using React with Typescript. The most important external libraries used were `date-fns` for date/time handling, `tailwindcss` as a css framework and processor, `eslint` for code linting, `phosphor-react` for icons and a few other ones.
+Posterr was built using React with Typescript. The most important external libraries used were:
 
-Most of the application was built using hooks and modern React practices. A state management solution such as `redux` was not needed in my opinion, so I decided to work with `contexts`.
+- `date-fns` for date/time handling
+- `tailwindcss` as a css framework and processor
+- `eslint` for code linting
+- `usehooks-ts` for some helpful simple hooks
+- `phosphor-react` for icons
+- `lodash` for some helper functions
+
+Most of the application was built using hooks and modern React practices. A state management solution such as `redux` was not needed in my opinion, so I decided to work with React `contexts`.
 
 The app uses the browser's local storage to handle/store the data, but some mocked/fake api calls can be found in `src/api/apiMock`. On the first time the app loads, an initial dataset with a few users and posts is loaded to the local storage in case it doesn't have any data yet.
 
