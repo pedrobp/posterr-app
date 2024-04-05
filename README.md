@@ -1,4 +1,4 @@
-# Pedro Pimenta - Posterr Challenge
+# Posterr App
 
 ## Setup and Run
 
@@ -11,6 +11,8 @@ OR
 - `npm i` and `npm start`
 
 The application runs on port 3003.
+
+To access the deployed application, click [here](https://posterrapp.netlify.app/).
 
 ## Application Overview
 
